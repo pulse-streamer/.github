@@ -1,7 +1,7 @@
 > [!WARNING]
 > This project is a work-in-progress - already usable, but some features are still missing and breaking changes are still possible. Documentation is coming soon.
 
-## NI Pulse Streamer
+# NI Pulse Streamer
 
 High-level Python API for scripted pulse sequence generation with [National Instruments](http://www.ni.com/) hardware.
 
@@ -16,7 +16,7 @@ Features:
 
 See [demos](https://github.com/pulse-streamer/ni-streamer/tree/main/py_api/demo) for the example workflow.
 
-### Installation instructions
+## Installation instructions
 Currently, you have to git-clone the repos and build the back-end locally (pre-built and `pip`-installable version is coming later).
 
 1. Install Rust by following the [official instructions](https://www.rust-lang.org/learn/get-started).
@@ -62,7 +62,10 @@ from nistreamer import usr_fn_lib  # only if this feature was enabled
 ```  
 See the [demos](https://github.com/pulse-streamer/ni-streamer/tree/main/py_api/demo) for a quick-start guide.
 
-### Project structure
+## Project structure
+
+![Project structure schematics. Rust backend is comprised of base-streamer, ni-streamer, and usr-fn-lib crates and implements the streamer-device-channel-instruction tree structure. There is an interface layer between Rust back-end and Python front-end based on PyO3 and maturin. The user-facing Python API part is a collection of proxy classes which artificially "re-inflate" the streamer-device-channel tree which had to be flatten when passing across the language interface.](https://github.com/user-attachments/assets/bf06c51c-393c-47c9-a747-753f97a9f99d)
+
 * `base-streamer` repo:
     * Base traits for channel, device, and streamer types;
     * Base waveform function traits (`Calc<T>`, `FnTraitSet<T>`) and instruction type;
@@ -77,7 +80,7 @@ See the [demos](https://github.com/pulse-streamer/ni-streamer/tree/main/py_api/d
     
 * `usr-fn-lib` repo (optional dependency) - a template for custom waveform function library. Users are expected to create and maintain their own fork of this repo.
 
-### Main limitations and caveats
+## Main limitations and caveats
 
 * Both Analog and Digital **output** channels are supported. There is no built-in support for **input** channels. However, your application can still read inputs by directly creating NI DAQmx tasks with [PyDAQmx](https://pythonhosted.org/PyDAQmx/) or [nidaqmx](https://nidaqmx-python.readthedocs.io/en/stable/) Python packages as long as they don't conflict with the tasks created by `NIStreamer`.
 
