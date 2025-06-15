@@ -80,6 +80,9 @@ See the [demos](https://github.com/pulse-streamer/ni-streamer/tree/main/py_api/d
     
 * `usr-fn-lib` repo (optional dependency) - a template for custom waveform function library. Users are expected to create and maintain their own fork of this repo.
 
+The schematic below is showing how the logic is distributed between the parts of the backend:  
+![The Rust backend is composed of 3 separate crates. The image shows the key modules and their functionality in each one. For example, logic for channel, device, and streamer "objects" is split between the `base_streamer` and the `ni_streamer` crates. An equivalent description is provided in the main text below.](images/backend_structure.svg  "Backend structure schematic")
+
 ## Main limitations and caveats
 
 * Both Analog and Digital **output** channels are supported. There is no built-in support for **input** channels. However, your application can still read inputs by directly creating NI DAQmx tasks with [PyDAQmx](https://pythonhosted.org/PyDAQmx/) or [nidaqmx](https://nidaqmx-python.readthedocs.io/en/stable/) Python packages as long as they don't conflict with the tasks created by `NIStreamer`.
